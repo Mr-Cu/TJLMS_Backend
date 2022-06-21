@@ -4,7 +4,6 @@ import edu.tongji.tjlms.dto.FinalGradeDto;
 import edu.tongji.tjlms.dto.QueryGradeDto;
 import edu.tongji.tjlms.model.CourseEntity;
 import edu.tongji.tjlms.model.QueryGradeEntity;
-import edu.tongji.tjlms.model.SummatorBasicEntity;
 import edu.tongji.tjlms.repository.*;
 import edu.tongji.tjlms.service.check.CheckService;
 import edu.tongji.tjlms.util.ScoreConvertUtil;

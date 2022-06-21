@@ -1,13 +1,12 @@
 package edu.tongji.tjlms.service.check;
 
-import edu.tongji.tjlms.dto.StuGetCheckDto;
 import edu.tongji.tjlms.dto.PostCheckDto;
+import edu.tongji.tjlms.dto.StuGetCheckDto;
 import edu.tongji.tjlms.dto.TeacherGetCheckDto;
 import edu.tongji.tjlms.model.CheckEntity;
 import edu.tongji.tjlms.model.StuCheckEntity;
 import edu.tongji.tjlms.model.TakesEntity;
 import edu.tongji.tjlms.repository.CheckRepository;
-import edu.tongji.tjlms.repository.ClassRepository;
 import edu.tongji.tjlms.repository.StuCheckRepository;
 import edu.tongji.tjlms.repository.TakesRepository;
 import org.springframework.stereotype.Service;
