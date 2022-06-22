@@ -1,7 +1,7 @@
 package edu.tongji.tjlms.service.check;
 
-import edu.tongji.tjlms.dto.PostCheckDto;
 import edu.tongji.tjlms.dto.StuGetCheckDto;
+import edu.tongji.tjlms.dto.PostCheckDto;
 import edu.tongji.tjlms.dto.TeacherGetCheckDto;
 
 import java.util.List;

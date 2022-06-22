@@ -1,7 +1,7 @@
 package edu.tongji.tjlms.controller;
 
-import edu.tongji.tjlms.dto.PostCheckDto;
 import edu.tongji.tjlms.dto.StuGetCheckDto;
+import edu.tongji.tjlms.dto.PostCheckDto;
 import edu.tongji.tjlms.dto.TeacherGetCheckDto;
 import edu.tongji.tjlms.service.check.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
