@@ -91,6 +91,5 @@ public class EmailSendServiceImpl implements EmailSendService {
             // send it!
             jms.send(message);
             return "发送成功";
-
     }
 }

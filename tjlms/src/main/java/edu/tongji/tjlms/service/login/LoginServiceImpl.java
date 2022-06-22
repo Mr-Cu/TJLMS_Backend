@@ -56,10 +56,11 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "邮箱或密码错误";
                 }
-                if(!student.get().getVerified())
-                {
-                    return "尚未激活";
-                }
+                //不存在尚未激活的情况，因为只能通过邮箱登录，尚未注册就没有邮箱，而一旦注册就能激活账户
+//                if(!student.get().getVerified())
+//                {
+//                    return "尚未激活";
+//                }
                 student.get().setPassword(null);
                 return student.get();
 
@@ -74,10 +75,11 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "邮箱或密码错误";
                 }
-                if(!teacher.get().getVerified())
-                {
-                    return "尚未激活";
-                }
+                //不存在尚未激活的情况，因为只能通过邮箱登录，尚未注册就没有邮箱，而一旦注册就能激活账户
+//                if(!teacher.get().getVerified())
+//                {
+//                    return "尚未激活";
+//                }
                 teacher.get().setPassword(null);
                 return teacher.get();
 
