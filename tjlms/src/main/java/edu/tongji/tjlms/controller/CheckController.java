@@ -83,7 +83,7 @@ public class CheckController {
         try
         {
             String ret = checkService.submitCheck(stuId,checkId);
-            if(ret.equals("学生编号不能为空")||ret.equals("签到编号不能为空")||ret.equals("时间转换失败")) {
+            if(ret.equals("学生编号不能为空")||ret.equals("签到编号不能为空")) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
             }
             else if(ret.equals("未到签到时间，无法签到")||ret.equals("签到已结束，无法签到")) {

@@ -54,8 +54,7 @@ public class CheckServiceImpl implements CheckService{
         CheckEntity check1 = checkRepository.saveAndFlush(check);
         int checkId = check1.getId();
         List<TakesEntity> takes = takesRepository.findAllByClassId(pcd.getClassId());
-        for(TakesEntity takes1:takes)
-        {
+        for(TakesEntity takes1:takes) {
             StuCheckEntity stuCheck = new StuCheckEntity();
             stuCheck.setStuId(takes1.getStuId());
             stuCheck.setCheckId(checkId);
@@ -111,16 +110,13 @@ public class CheckServiceImpl implements CheckService{
             e.printStackTrace();
             return "时间转换失败";
         }
-        if(now.before(dateStart))
-        {
+        if(now.before(dateStart)) {
             return "未到签到时间，无法签到";
         }
-        else if(now.after(dateEnd))
-        {
+        else if(now.after(dateEnd)) {
             return "签到已结束，无法签到";
         }
-        else
-        {
+        else {
             StuCheckEntity stuCheck = new StuCheckEntity();
             stuCheck.setCheckId(checkId);
             stuCheck.setStuId(stuId);
@@ -137,15 +133,12 @@ public class CheckServiceImpl implements CheckService{
         String classId = takesRepository.findByStuId(stuId).getClassId();
         List<CheckEntity> checks = checkRepository.findAllByClassId(classId);
         List<StuCheckEntity> attendances = stuCheckRepository.findAllByStuId(stuId);
-        for(StuCheckEntity stuCheck:attendances)
-        {
-            if(stuCheck.getTime() != null)
-            {
+        for(StuCheckEntity stuCheck:attendances) {
+            if(stuCheck.getTime() != null) {
                 valid++;
             }
         }
-        if(!checks.isEmpty())
-        {
+        if(!checks.isEmpty()) {
             ret = (double) valid/checks.size();
         }
         return ret*100.0;
@@ -156,8 +149,7 @@ public class CheckServiceImpl implements CheckService{
         List<TeacherGetCheckDto> list = new ArrayList<>();
         List<CheckEntity> checks = checkRepository.findAllByClassId(classId);
         int all = takesRepository.findAllByClassId(classId).size();
-        for(CheckEntity check:checks)
-        {
+        for(CheckEntity check:checks) {
             int checked = 0;
             TeacherGetCheckDto teacherGetCheckDto = new TeacherGetCheckDto();
             teacherGetCheckDto.setId(check.getId());
@@ -165,10 +157,8 @@ public class CheckServiceImpl implements CheckService{
             teacherGetCheckDto.setEndTime(check.getEndTime());
             teacherGetCheckDto.setStartTime(check.getStartTime());
             List<StuCheckEntity> stuCheckEntities = stuCheckRepository.findAllByCheckId(check.getId());
-            for(StuCheckEntity stuCheck:stuCheckEntities)
-            {
-                if(stuCheck.getTime() != null)
-                {
+            for(StuCheckEntity stuCheck:stuCheckEntities) {
+                if(stuCheck.getTime() != null) {
                     checked++;
                 }
             }
