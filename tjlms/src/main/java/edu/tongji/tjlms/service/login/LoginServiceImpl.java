@@ -1,6 +1,9 @@
 package edu.tongji.tjlms.service.login;
 
+import edu.tongji.tjlms.dto.LoginAdminDto;
 import edu.tongji.tjlms.dto.LoginDto;
+import edu.tongji.tjlms.dto.LoginStudentDto;
+import edu.tongji.tjlms.dto.LoginTeacherDto;
 import edu.tongji.tjlms.model.AdminEntity;
 import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
@@ -43,8 +46,13 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "邮箱或密码错误";
                 }
-                admin.get().setPassword(null);
-                return admin.get();
+                LoginAdminDto loginAdmin=new LoginAdminDto();
+                loginAdmin.setEmailAddr(admin.get().getEmailAddr());
+                loginAdmin.setName(admin.get().getName());
+                loginAdmin.setId(admin.get().getId());
+                loginAdmin.setPwdReset(admin.get().getPwdReset());
+                loginAdmin.setTelNum(admin.get().getTelNum());
+                return loginAdmin;
             }
 
             // Student
@@ -57,12 +65,12 @@ public class LoginServiceImpl implements LoginService{
                     return "邮箱或密码错误";
                 }
                 //不存在尚未激活的情况，因为只能通过邮箱登录，尚未注册就没有邮箱，而一旦注册就能激活账户
-//                if(!student.get().getVerified())
-//                {
-//                    return "尚未激活";
-//                }
-                student.get().setPassword(null);
-                return student.get();
+                LoginStudentDto loginStudent=new LoginStudentDto();
+                loginStudent.setEmailAddr(student.get().getEmailAddr());
+                loginStudent.setVerified(student.get().getVerified());
+                loginStudent.setName(student.get().getName());
+                loginStudent.setId(student.get().getId());
+                return loginStudent;
 
             }
 
@@ -76,12 +84,15 @@ public class LoginServiceImpl implements LoginService{
                     return "邮箱或密码错误";
                 }
                 //不存在尚未激活的情况，因为只能通过邮箱登录，尚未注册就没有邮箱，而一旦注册就能激活账户
-//                if(!teacher.get().getVerified())
-//                {
-//                    return "尚未激活";
-//                }
-                teacher.get().setPassword(null);
-                return teacher.get();
+                LoginTeacherDto loginTeacher=new LoginTeacherDto();
+                loginTeacher.setGrade(teacher.get().getGrade());
+                loginTeacher.setType(teacher.get().getType());
+                loginTeacher.setReleaseLab(teacher.get().getReleaseLab());
+                loginTeacher.setName(teacher.get().getName());
+                loginTeacher.setVerified(teacher.get().getVerified());
+                loginTeacher.setId(teacher.get().getId());
+                loginTeacher.setEmailAddr(teacher.get().getEmailAddr());
+                return loginTeacher;
 
             }
             default:
