@@ -35,15 +35,13 @@ public class LoginServiceImpl implements LoginService{
         int userType = ld.getUserType();
         String email = ld.getEmailAddress();
         String password = EncryptSha256Util.getSha256Str(ld.getPassword());
-        switch(userType)
-        {
+        switch(userType){
             // Admin
             case 0:
             {
                 // JPA code
                 Optional<AdminEntity> admin = adminRepository.findByEmailAddrAndPassword(email, password);
-                if(!admin.isPresent())
-                {
+                if(!admin.isPresent()){
                     return "邮箱或密码错误";
                 }
                 LoginAdminDto loginAdmin=new LoginAdminDto();
@@ -54,14 +52,12 @@ public class LoginServiceImpl implements LoginService{
                 loginAdmin.setTelNum(admin.get().getTelNum());
                 return loginAdmin;
             }
-
             // Student
             case 1:
             {
                 // JPA code
                 Optional<StudentEntity> student = studentRepository.findByEmailAddrAndPassword(email,password);
-                if(!student.isPresent())
-                {
+                if(!student.isPresent()){
                     return "邮箱或密码错误";
                 }
                 //不存在尚未激活的情况，因为只能通过邮箱登录，尚未注册就没有邮箱，而一旦注册就能激活账户
@@ -73,14 +69,12 @@ public class LoginServiceImpl implements LoginService{
                 return loginStudent;
 
             }
-
             // Teacher
             case 2:
             {
                 // JPA code
                 Optional<TeacherEntity> teacher = teacherRepository.findByEmailAddrAndPassword(email, password);
-                if(!teacher.isPresent())
-                {
+                if(!teacher.isPresent()){
                     return "邮箱或密码错误";
                 }
                 //不存在尚未激活的情况，因为只能通过邮箱登录，尚未注册就没有邮箱，而一旦注册就能激活账户
@@ -93,7 +87,6 @@ public class LoginServiceImpl implements LoginService{
                 loginTeacher.setId(teacher.get().getId());
                 loginTeacher.setEmailAddr(teacher.get().getEmailAddr());
                 return loginTeacher;
-
             }
             default:
             {
