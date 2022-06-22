@@ -30,16 +30,16 @@ public class EmailSendController {
         try
         {
            String ret = emailSendService.sendEmail(ed);
-           if(ret.equals("发送成功"))
-           {
+           if(ret.equals("发送成功")) {
                return ResponseEntity.status(HttpStatus.OK).body(ret);
            }
-           else if(ret.equals("学工号错误"))
-           {
+           else if(ret.equals("学工号错误")) {
                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ret);
            }
-           else
-           {
+           else if(ret.equals("学工号不能为空")||ret.equals("错误用户类型")) {
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
+           }
+           else {
                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
            }
         }

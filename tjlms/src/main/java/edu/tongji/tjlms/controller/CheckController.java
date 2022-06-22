@@ -24,7 +24,14 @@ public class CheckController {
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(checkService.postCheck(pcd));
+            String checkState=checkService.postCheck(pcd);
+            if(checkState == "班级编号不能为空"){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("班级编号不能为空");
+            }
+            if(checkState == "不存在该班级"){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("不存在该班级");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(checkState);
         }
         catch (Exception e)
         {
@@ -39,8 +46,7 @@ public class CheckController {
         try
         {
             List<StuGetCheckDto> checks = checkService.getAllCheckByStuId(stuId);
-            if(checks == null)
-            {
+            if(checks == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无签到信息");
             }
             return ResponseEntity.status(HttpStatus.OK).body(checks);
@@ -59,8 +65,7 @@ public class CheckController {
         try
         {
             List<TeacherGetCheckDto> checks = checkService.getAllCheckByClassId(classId);
-            if(checks == null)
-            {
+            if(checks == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无签到信息");
             }
             return ResponseEntity.status(HttpStatus.OK).body(checks);
@@ -78,8 +83,13 @@ public class CheckController {
         try
         {
             String ret = checkService.submitCheck(stuId,checkId);
-            if(ret.equals("签到成功"))
-            {
+            if(ret.equals("学生编号不能为空")||ret.equals("签到编号不能为空")||ret.equals("时间转换失败")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
+            }
+            else if(ret.equals("未到签到时间，无法签到")||ret.equals("签到已结束，无法签到")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ret);
+            }
+            else if(ret.equals("签到成功")) {
                 return ResponseEntity.status(HttpStatus.OK).body(ret);
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);

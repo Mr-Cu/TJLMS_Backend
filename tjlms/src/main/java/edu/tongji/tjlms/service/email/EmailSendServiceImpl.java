@@ -49,17 +49,18 @@ public class EmailSendServiceImpl implements EmailSendService {
             verificationCode = VerificationCodeUtil.generateCode();
             // query the information from the DBMS
             String id = ed.getId();
+            if(id == null){
+                return "学工号不能为空";
+            }
             String name = "";
             int userType = ed.getUserType();
-            switch (userType)
-            {
+            switch (userType) {
                 // student
                 case 1:
                 {
                     // JPA code
                     Optional<StudentEntity> student = studentRepository.findById(id);
-                    if(!student.isPresent())
-                    {
+                    if(!student.isPresent()) {
                         return "学工号错误";
                     }
                     name = student.get().getName();
@@ -70,12 +71,15 @@ public class EmailSendServiceImpl implements EmailSendService {
                 {
                     // JPA code
                     Optional<TeacherEntity> teacher = teacherRepository.findById(id);
-                    if(!teacher.isPresent())
-                    {
+                    if(!teacher.isPresent()) {
                         return "学工号错误";
                     }
                     name = teacher.get().getName();
                     break;
+                }
+                default:
+                {
+                    return "错误用户类型";
                 }
             }
             // set the email

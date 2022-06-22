@@ -59,18 +59,14 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Override
     public Page<FeedbackEntity> myReply(String id, Integer pageNum, Integer pageSize) {
         Page<FeedbackEntity> page =  feedbackRepository.findAllByReplier(id, PageRequest.of(pageNum-1,pageSize));
-        if(page.getContent().isEmpty())
-        {
+        if(page.getContent().isEmpty()) {
             return null;
         }
-        for(FeedbackEntity feedback:page.getContent())
-        {
-            if(feedback.getAnonymous())
-            {
+        for(FeedbackEntity feedback:page.getContent()) {
+            if(feedback.getAnonymous()) {
                 feedback.setFeedbacker("匿名反馈");
             }
-            else
-            {
+            else {
                 feedback.setFeedbacker(feedback.getFeedbacker()+' '+studentRepository.findById(feedback.getFeedbacker()).get().getName());
             }
         }
@@ -80,18 +76,14 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Override
     public Page<FeedbackEntity> getAllFeedback(Integer pageNum, Integer pageSize) {
         Page<FeedbackEntity> page = feedbackRepository.findAll(PageRequest.of(pageNum-1,pageSize));
-        if(page.getContent().isEmpty())
-        {
+        if(page.getContent().isEmpty()) {
             return null;
         }
-        for(FeedbackEntity feedback:page.getContent())
-        {
-            if(feedback.getAnonymous())
-            {
+        for(FeedbackEntity feedback:page.getContent()) {
+            if(feedback.getAnonymous()) {
                 feedback.setFeedbacker("匿名反馈");
             }
-            else
-            {
+            else {
                 feedback.setFeedbacker(feedback.getFeedbacker()+' '+studentRepository.findById(feedback.getFeedbacker()).get().getName());
             }
         }
@@ -102,20 +94,16 @@ public class FeedbackServiceImpl implements FeedbackService{
     public Map<String, Object> myFeedbackWithName(String id, Integer pageNum, Integer pageSize) {
         Map<String,Object> map = new HashMap<>();
         Page<FeedbackEntity> page =  feedbackRepository.findAllByFeedbacker(id, PageRequest.of(pageNum-1,pageSize));
-        if(page.getContent().isEmpty())
-        {
+        if(page.getContent().isEmpty()) {
             return null;
         }
         List<String> names = new ArrayList<>();
         map.put("feedbacks",page.getContent());
-        for(FeedbackEntity feedback:page.getContent())
-        {
-            if(feedback.getReplier() == null)
-            {
+        for(FeedbackEntity feedback:page.getContent()) {
+            if(feedback.getReplier() == null) {
                 names.add(null);
             }
-            else
-            {
+            else {
                 names.add(feedback.getReplier()+' '+teacherRepository.findById(feedback.getReplier()).get().getName());
             }
         }

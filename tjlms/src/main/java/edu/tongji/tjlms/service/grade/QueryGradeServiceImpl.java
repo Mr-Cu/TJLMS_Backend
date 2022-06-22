@@ -9,6 +9,8 @@ import edu.tongji.tjlms.repository.*;
 import edu.tongji.tjlms.service.check.CheckService;
 import edu.tongji.tjlms.util.ScoreConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,18 +63,19 @@ public class QueryGradeServiceImpl implements QueryGradeService {
         Optional<CourseEntity> course = courseRepository.findById("420000");
         Double ratio = course.get().getRatio();
         double sum = 0.;
-        for (QueryGradeDto grade: ret.getEachGrades())
-        {
+        for (QueryGradeDto grade: ret.getEachGrades()) {
             sum += grade.getQueryGradeEntity().getScore();
         }
         double avg = 0.;
-        if(!ret.getEachGrades().isEmpty())
-        {
+        if(!ret.getEachGrades().isEmpty()) {
             avg = sum/ret.getEachGrades().size();
         }
         double finalScore = avg*(1.0-ratio)+ret.getAttendance()*ratio;
         ret.setFinalScore(finalScore);
         ret.setFinalGrade(ScoreConvertUtil.score2Grade(finalScore));
+        if(ret.getEachGrades().isEmpty()) {
+            return null;
+        }
         return ret;
     }
 

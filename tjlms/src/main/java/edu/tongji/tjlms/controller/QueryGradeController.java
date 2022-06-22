@@ -21,8 +21,7 @@ public class QueryGradeController {
         try
         {
             FinalGradeDto grade = queryGradeService.queryFinalGrade(studentId);
-            if(grade.getEachGrades().isEmpty())
-            {
+            if(grade == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无成绩信息");
             }
             return ResponseEntity.status(HttpStatus.OK).body(grade);

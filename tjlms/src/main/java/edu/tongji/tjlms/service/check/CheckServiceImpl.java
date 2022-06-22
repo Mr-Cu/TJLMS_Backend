@@ -4,12 +4,15 @@ import edu.tongji.tjlms.dto.StuGetCheckDto;
 import edu.tongji.tjlms.dto.PostCheckDto;
 import edu.tongji.tjlms.dto.TeacherGetCheckDto;
 import edu.tongji.tjlms.model.CheckEntity;
+import edu.tongji.tjlms.model.ClassEntity;
 import edu.tongji.tjlms.model.StuCheckEntity;
 import edu.tongji.tjlms.model.TakesEntity;
 import edu.tongji.tjlms.repository.CheckRepository;
 import edu.tongji.tjlms.repository.ClassRepository;
 import edu.tongji.tjlms.repository.StuCheckRepository;
 import edu.tongji.tjlms.repository.TakesRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +25,8 @@ import java.util.Optional;
 
 @Service
 public class CheckServiceImpl implements CheckService{
+    @Resource
+    ClassRepository classRepository;
 
     @Resource
     CheckRepository checkRepository;
@@ -34,6 +39,13 @@ public class CheckServiceImpl implements CheckService{
 
     @Override
     public String postCheck(PostCheckDto pcd) {
+        if(pcd.getClassId()==null){
+            return "班级编号不能为空";
+        }
+        ClassEntity class1 = classRepository.findAllById(pcd.getClassId());
+        if(class1==null){
+            return "不存在该班级";
+        }
         CheckEntity check = new CheckEntity();
         check.setClassId(pcd.getClassId());
         check.setStartTime(pcd.getStart());
@@ -57,12 +69,10 @@ public class CheckServiceImpl implements CheckService{
     public List<StuGetCheckDto> getAllCheckByStuId(String stuId) {
         List<CheckEntity> checks = checkRepository.findAllByClassId(takesRepository.findByStuId(stuId).getClassId());
         List<StuGetCheckDto> ret = new ArrayList<>();
-        if(checks.isEmpty())
-        {
+        if(checks.isEmpty()) {
             return null;
         }
-        for(CheckEntity check:checks)
-        {
+        for(CheckEntity check:checks) {
             StuGetCheckDto getCheckDto = new StuGetCheckDto();
             getCheckDto.setId(check.getId());
             getCheckDto.setStartTime(check.getStartTime());
@@ -76,6 +86,12 @@ public class CheckServiceImpl implements CheckService{
 
     @Override
     public String submitCheck(String stuId,Integer checkId) {
+        if(stuId == null){
+            return "学生编号不能为空";
+        }
+        if(checkId == null){
+            return "签到编号不能为空";
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Optional<CheckEntity> check = checkRepository.findById(checkId);
         String start = check.get().getStartTime();
@@ -159,8 +175,7 @@ public class CheckServiceImpl implements CheckService{
             teacherGetCheckDto.setChecked(checked);
             list.add(teacherGetCheckDto);
         }
-        if(list.isEmpty())
-        {
+        if(list.isEmpty()) {
             return null;
         }
         return list;
