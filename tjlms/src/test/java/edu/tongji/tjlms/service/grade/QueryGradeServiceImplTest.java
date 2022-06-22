@@ -59,7 +59,7 @@ class QueryGradeServiceImplTest {
      * Method under test: {@link QueryGradeServiceImpl#queryFinalGrade(String)}
      */
     @Test
-    void testQueryFinalGrade() {
+    void testQueryFinalGrade1() {
         when(this.queryGradeRepository.findAllByStuId((String) any())).thenReturn(new ArrayList<>());
 
         CourseEntity courseEntity = new CourseEntity();
@@ -119,29 +119,5 @@ class QueryGradeServiceImplTest {
         verify(this.checkService).calculateAttendance((String) any());
     }
 
-    /**
-     * Method under test: {@link QueryGradeServiceImpl#queryFinalGrade(String)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testQueryFinalGrade3() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.util.NoSuchElementException: No value present
-        //       at java.util.Optional.get(Optional.java:135)
-        //       at edu.tongji.tjlms.service.grade.QueryGradeServiceImpl.queryFinalGrade(QueryGradeServiceImpl.java:64)
-        //   In order to prevent queryFinalGrade(String)
-        //   from throwing NoSuchElementException, add constructors or factory
-        //   methods that make it easier to construct fully initialized objects used in
-        //   queryFinalGrade(String).
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(this.queryGradeRepository.findAllByStuId((String) any())).thenReturn(new ArrayList<>());
-        when(this.courseRepository.findById((String) any())).thenReturn(Optional.empty());
-        when(this.checkService.calculateAttendance((String) any())).thenReturn(10.0d);
-        this.queryGradeServiceImpl.queryFinalGrade("42");
-    }
 }
 

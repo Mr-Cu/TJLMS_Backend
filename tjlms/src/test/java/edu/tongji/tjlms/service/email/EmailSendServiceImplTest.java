@@ -45,7 +45,7 @@ class EmailSendServiceImplTest {
      * Method under test: {@link EmailSendServiceImpl#sendEmail(EmailDto)}
      */
     @Test
-    void testSendEmail() throws MailException {
+    void testSendEmail1() throws MailException {
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setEmailAddr("42 Main St");
         studentEntity.setId("42");
@@ -69,35 +69,7 @@ class EmailSendServiceImplTest {
      * Method under test: {@link EmailSendServiceImpl#sendEmail(EmailDto)}
      */
     @Test
-    @Disabled("TODO: Complete this test")
     void testSendEmail2() throws MailException {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException
-        //       at edu.tongji.tjlms.service.email.EmailSendServiceImpl.sendEmail(EmailSendServiceImpl.java:63)
-        //   In order to prevent sendEmail(EmailDto)
-        //   from throwing NullPointerException, add constructors or factory
-        //   methods that make it easier to construct fully initialized objects used in
-        //   sendEmail(EmailDto).
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(this.studentRepository.findById((String) any())).thenReturn(null);
-        doNothing().when(this.javaMailSender).send((org.springframework.mail.SimpleMailMessage) any());
-
-        EmailDto emailDto = new EmailDto();
-        emailDto.setEmailAddress("42 Main St");
-        emailDto.setId("42");
-        emailDto.setUserType(1);
-        this.emailSendServiceImpl.sendEmail(emailDto);
-    }
-
-    /**
-     * Method under test: {@link EmailSendServiceImpl#sendEmail(EmailDto)}
-     */
-    @Test
-    void testSendEmail3() throws MailException {
         when(this.studentRepository.findById((String) any())).thenReturn(Optional.empty());
         doNothing().when(this.javaMailSender).send((org.springframework.mail.SimpleMailMessage) any());
 
@@ -113,7 +85,7 @@ class EmailSendServiceImplTest {
      * Method under test: {@link EmailSendServiceImpl#sendEmail(EmailDto)}
      */
     @Test
-    void testSendEmail4() throws MailException {
+    void testSendEmail3() throws MailException {
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setEmailAddr("42 Main St");
         studentEntity.setId("42");
@@ -144,7 +116,7 @@ class EmailSendServiceImplTest {
      * Method under test: {@link EmailSendServiceImpl#sendEmail(EmailDto)}
      */
     @Test
-    void testSendEmail5() throws MailException {
+    void testSendEmail4() throws MailException {
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setEmailAddr("42 Main St");
         studentEntity.setId("42");
@@ -170,14 +142,5 @@ class EmailSendServiceImplTest {
         verify(emailDto).setUserType((Integer) any());
     }
 
-    /**
-     * Method under test: default or parameterless constructor of {@link EmailSendServiceImpl}
-     */
-    @Test
-    void testConstructor() {
-        EmailSendServiceImpl actualEmailSendServiceImpl = new EmailSendServiceImpl();
-        assertNull(actualEmailSendServiceImpl.studentRepository);
-        assertNull(actualEmailSendServiceImpl.teacherRepository);
-    }
 }
 

@@ -58,7 +58,7 @@ class CheckServiceImplTest {
      * Method under test: {@link CheckServiceImpl#postCheck(PostCheckDto)}
      */
     @Test
-    void testPostCheck() {
+    void testPostCheck1() {
         when(this.takesRepository.findAllByClassId((String) any())).thenReturn(new ArrayList<>());
 
         ClassEntity classEntity = new ClassEntity();
@@ -138,7 +138,7 @@ class CheckServiceImplTest {
      * Method under test: {@link CheckServiceImpl#getAllCheckByStuId(String)}
      */
     @Test
-    void testGetAllCheckByStuId() {
+    void testGetAllCheckByStuId1() {
         TakesEntity takesEntity = new TakesEntity();
         takesEntity.setClassId("42");
         takesEntity.setStuId("42");
@@ -232,7 +232,7 @@ class CheckServiceImplTest {
      * Method under test: {@link CheckServiceImpl#submitCheck(String, Integer)}
      */
     @Test
-    void testSubmitCheck() {
+    void testSubmitCheck1() {
         CheckEntity checkEntity = new CheckEntity();
         checkEntity.setCheckedStudent(1);
         checkEntity.setClassId("42");
@@ -249,43 +249,7 @@ class CheckServiceImplTest {
      * Method under test: {@link CheckServiceImpl#submitCheck(String, Integer)}
      */
     @Test
-    @Disabled("TODO: Complete this test")
     void testSubmitCheck2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.util.NoSuchElementException: No value present
-        //       at java.util.Optional.get(Optional.java:135)
-        //       at edu.tongji.tjlms.service.check.CheckServiceImpl.submitCheck(CheckServiceImpl.java:97)
-        //   In order to prevent submitCheck(String, Integer)
-        //   from throwing NoSuchElementException, add constructors or factory
-        //   methods that make it easier to construct fully initialized objects used in
-        //   submitCheck(String, Integer).
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(this.checkRepository.findById((Integer) any())).thenReturn(Optional.empty());
-        CheckEntity checkEntity = mock(CheckEntity.class);
-        when(checkEntity.getEndTime()).thenReturn("End Time");
-        when(checkEntity.getStartTime()).thenReturn("Start Time");
-        doNothing().when(checkEntity).setCheckedStudent((Integer) any());
-        doNothing().when(checkEntity).setClassId((String) any());
-        doNothing().when(checkEntity).setEndTime((String) any());
-        doNothing().when(checkEntity).setId(anyInt());
-        doNothing().when(checkEntity).setStartTime((String) any());
-        checkEntity.setCheckedStudent(1);
-        checkEntity.setClassId("42");
-        checkEntity.setEndTime("End Time");
-        checkEntity.setId(1);
-        checkEntity.setStartTime("Start Time");
-        this.checkServiceImpl.submitCheck("42", 123);
-    }
-
-    /**
-     * Method under test: {@link CheckServiceImpl#submitCheck(String, Integer)}
-     */
-    @Test
-    void testSubmitCheck3() {
         when(this.checkRepository.findById((Integer) any())).thenReturn(Optional.empty());
         CheckEntity checkEntity = mock(CheckEntity.class);
         when(checkEntity.getEndTime()).thenReturn("End Time");
@@ -312,7 +276,7 @@ class CheckServiceImplTest {
      * Method under test: {@link CheckServiceImpl#submitCheck(String, Integer)}
      */
     @Test
-    void testSubmitCheck4() {
+    void testSubmitCheck3() {
         when(this.checkRepository.findById((Integer) any())).thenReturn(Optional.empty());
         CheckEntity checkEntity = mock(CheckEntity.class);
         when(checkEntity.getEndTime()).thenReturn("End Time");
@@ -339,7 +303,7 @@ class CheckServiceImplTest {
      * Method under test: {@link CheckServiceImpl#getAllCheckByClassId(String)}
      */
     @Test
-    void testGetAllCheckByClassId() {
+    void testGetAllCheckByClassId1() {
         when(this.takesRepository.findAllByClassId((String) any())).thenReturn(new ArrayList<>());
         when(this.checkRepository.findAllByClassId((String) any())).thenReturn(new ArrayList<>());
         assertNull(this.checkServiceImpl.getAllCheckByClassId("42"));
