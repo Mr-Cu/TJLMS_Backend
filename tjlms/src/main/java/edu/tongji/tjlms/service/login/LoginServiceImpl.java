@@ -67,7 +67,6 @@ public class LoginServiceImpl implements LoginService{
                 loginStudent.setName(student.get().getName());
                 loginStudent.setId(student.get().getId());
                 return loginStudent;
-
             }
             // Teacher
             case 2:
