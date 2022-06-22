@@ -66,7 +66,11 @@ public class CheckServiceImpl implements CheckService{
 
     @Override
     public List<StuGetCheckDto> getAllCheckByStuId(String stuId) {
-        List<CheckEntity> checks = checkRepository.findAllByClassId(takesRepository.findByStuId(stuId).getClassId());
+        String classId=takesRepository.findByStuId(stuId).getClassId();
+        if(classId==null){
+            return null;
+        }
+        List<CheckEntity> checks = checkRepository.findAllByClassId(classId);
         List<StuGetCheckDto> ret = new ArrayList<>();
         if(checks.isEmpty()) {
             return null;
