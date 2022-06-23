@@ -17,6 +17,8 @@ public class VerificationCodeCheckController {
     {
         try
         {
+            if(code==null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("验证码不能为空");
             String verificationCode = EmailSendServiceImpl.getVerificationCode();
 //            System.out.println(verificationCode);
             // compare the verification code
